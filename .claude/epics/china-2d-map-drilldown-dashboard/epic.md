@@ -4,7 +4,7 @@ status: backlog
 created: 2025-09-16T04:20:39Z
 progress: 0%
 prd: .claude/prds/china-2d-map-drilldown-dashboard.md
-github: [Will be updated when synced to GitHub]
+github: https://github.com/Desion131525/china-map-dashboard-2d/issues/1
 ---
 
 # Epic: 中国地图2D数据大屏
@@ -75,7 +75,7 @@ github: [Will be updated when synced to GitHub]
 ## 依赖关系
 
 ### 外部服务依赖
-- 阿里云地图数据API访问权限和认证配置
+- 阿里云地图数据API访问权限和认证配置  https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json
 - ECharts库CDN或本地部署
 - 互联网连接用于地图数据加载
 
