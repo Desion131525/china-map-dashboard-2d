@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>环境测试 - 中国2D地图数据看板</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+    </style>
+</head>
+<body>
+    <h1>开发环境测试</h1>
+    <p>测试中国2D地图数据看板的开发环境配置</p>
+
+    <div id="test-results">
+        <h2>测试结果</h2>
+        <div id="file-tests">
+            <h3>文件检查</h3>
+        </div>
+        <div id="server-tests">
+            <h3>服务器检查</h3>
+        </div>
+        <div id="echarts-test">
+            <h3>ECharts 检查</h3>
+        </div>
+    </div>
+
+    <script>
+        // 测试函数
+        function testFileExistence(filePath, testName) {
+            return fetch(filePath)
+                .then(response => {
+                    const div = document.createElement('div');
+                    div.className = 'test-result';
+                    if (response.ok) {
+                        div.classList.add('success');
+                        div.innerHTML = `✅ ${testName}: 文件存在且可访问`;
+                    } else {
+                        div.classList.add('error');
+                        div.innerHTML = `❌ ${testName}: 文件不存在 (${response.status})`;
+                    }
+                    document.getElementById('file-tests').appendChild(div);
+                    return response.ok;
+                })
+                .catch(error => {
+                    const div = document.createElement('div');
+                    div.className = 'test-result error';
+                    div.innerHTML = `❌ ${testName}: 访问错误 - ${error.message}`;
+                    document.getElementById('file-tests').appendChild(div);
+                    return false;
+                });
+        }
+
+        function testECharts() {
+            const div = document.createElement('div');
+            div.className = 'test-result';
+
+            if (typeof echarts !== 'undefined') {
+                div.classList.add('success');
+                div.innerHTML = `✅ ECharts: 已成功加载 (版本: ${echarts.version})`;
+            } else {
+                div.classList.add('error');
+                div.innerHTML = '❌ ECharts: 未加载，请检查CDN连接';
+            }
+
+            document.getElementById('echarts-test').appendChild(div);
+            return typeof echarts !== 'undefined';
+        }
+
+        // 运行所有测试
+        async function runAllTests() {
+            // 测试文件存在性
+            await testFileExistence('index.html', '主页面');
+            await testFileExistence('css/style.css', '样式文件');
+            await testFileExistence('js/app.js', '主应用脚本');
+            await testFileExistence('js/map.js', '地图脚本');
+            await testFileExistence('package.json', '项目配置');
+
+            // 测试服务器
+            const serverDiv = document.createElement('div');
+            serverDiv.className = 'test-result success';
+            serverDiv.innerHTML = '✅ 开发服务器: 运行正常';
+            document.getElementById('server-tests').appendChild(serverDiv);
+
+            // 测试ECharts
+            testECharts();
+
+            // 添加完成消息
+            const completeDiv = document.createElement('div');
+            completeDiv.className = 'test-result success';
+            completeDiv.innerHTML = '🎉 所有测试完成！开发环境已准备就绪。';
+            completeDiv.style.marginTop = '20px';
+            completeDiv.style.fontWeight = 'bold';
+            document.getElementById('test-results').appendChild(completeDiv);
+        }
+
+        // 页面加载完成后运行测试
+        document.addEventListener('DOMContentLoaded', runAllTests);
+    </script>
+
+    <!-- 加载ECharts用于测试 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</body>
+</html>

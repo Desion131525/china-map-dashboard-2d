@@ -1,0 +1,35 @@
+{
+  "name": "china-map-dashboard-2d",
+  "version": "1.0.0",
+  "description": "中国2D地图数据可视化看板",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 8080 -o -c-1",
+    "dev": "http-server -p 3000 -o -c-1",
+    "serve": "python -m http.server 8000",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "echarts",
+    "china-map",
+    "dashboard",
+    "data-visualization",
+    "2d-map"
+  ],
+  "author": "开发团队",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Desion131525/china-map-dashboard-2d.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Desion131525/china-map-dashboard-2d/issues"
+  },
+  "homepage": "https://github.com/Desion131525/china-map-dashboard-2d#readme"
+}
